@@ -1,0 +1,598 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2487.6">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="zh-CN"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;案件评估模型&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>:root {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>--primary-color: #4421B4;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>--primary-light: #EAE6F8;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>--primary-dark: #331982;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>--text-color: #333;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>--bg-color: #f5f5f5;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>--card-bg: rgba(255, 255, 255, 0.9); /* 卡片背景透明度 */</p>
+<p class="p1"><span class="Apple-converted-space">            </span>--judicial-color: #2196F3; /* 司法途径颜色 */</p>
+<p class="p1"><span class="Apple-converted-space">            </span>--pr-color: #FF9800; /* 公关途径颜色 */</p>
+<p class="p1"><span class="Apple-converted-space">            </span>--dual-color: #4CAF50; /* 双轨并行颜色 */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>* {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-sizing: border-box;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 0;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-family: '微软雅黑', sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: var(--text-color);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>line-height: 1.6;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>/* 背景图设置 */</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-image: url('https://source.unsplash.com/1600x900/?law,justice'); /* 使用在线图片 */</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-size: cover;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-position: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-repeat: no-repeat;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-attachment: fixed; /* 背景图固定 */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.container {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>max-width: 1200px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 0 auto;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: var(--card-bg);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 30px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 4px 20px rgba(0,0,0,0.08);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>h1 {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: var(--primary-color);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 0 0 40px 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 36px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>h2 {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: var(--primary-color);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 0 0 20px 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 24px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: normal;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.dimensions-grid {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: grid;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gap: 24px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 30px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.dimension-card {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: var(--card-bg);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 24px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 2px 10px rgba(0,0,0,0.05);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: all 0.3s;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-left: 4px solid var(--primary-color);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.dimension-card:hover {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transform: translateY(-2px);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 4px 15px rgba(0,0,0,0.1);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.dimension-header {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.dimension-header h3 {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: var(--primary-color);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 0;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.score-selector {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>flex-direction: column;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gap: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.score-option {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: relative;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.score-option input[type="radio"] {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: none;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.score-option label {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 2px solid #e0e0e0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: all 0.2s;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.score-option label:hover {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-color: var(--primary-color);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: var(--primary-light);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.score-option input[type="radio"]:checked + label {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-color: var(--primary-color);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: var(--primary-light);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.score-value {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 600;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-right: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>min-width: 40px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: var(--primary-color);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.score-desc {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 14px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #666;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.calculate-btn {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>justify-content: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>max-width: 300px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 40px auto;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 16px 32px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 18px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 600;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: var(--primary-color);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: none;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: all 0.3s;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 4px 12px rgba(68, 33, 180, 0.2);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.calculate-btn:hover {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: var(--primary-dark);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transform: translateY(-2px);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.calculate-btn:disabled {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #ccc;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cursor: not-allowed;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: none;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.conclusion {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: none;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 40px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 30px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: var(--card-bg);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-left: 6px solid var(--primary-color);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>animation: fadeInUp 0.6s ease;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.conclusion.show {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: block;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>@keyframes fadeInUp {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>from {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>opacity: 0;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>transform: translateY(20px);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>to {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>opacity: 1;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>transform: translateY(0);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.conclusion h3 {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 0 0 20px 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 24px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: var(--primary-color);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.conclusion-grid {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: grid;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gap: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 30px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.score-card {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: var(--primary-light);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.score-card .label {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 14px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #666;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.score-card .value {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 24px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 600;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.decision {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 25px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 28px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 600;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.decision.judicial {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: var(--judicial-color); /* 司法途径颜色 */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.decision.pr {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: var(--pr-color); /* 公关途径颜色 */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.decision.dual {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: var(--dual-color); /* 双轨并行颜色 */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>@media (max-width: 768px) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>.dimensions-grid {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>grid-template-columns: 1fr;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>.conclusion-grid {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>grid-template-columns: 1fr;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>.container {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>.dimension-card {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>.decision {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>font-size: 24px;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>padding: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h1&gt;锋鸣智能评估模型&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h2&gt;行政、刑事类请咨询公关顾问&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="dimensions-content"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button id="calculate-btn" class="calculate-btn" disabled&gt;请先完成评分&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="conclusion" class="conclusion"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const model = {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>dimensions: [</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>name: "证据充分性",<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>weightLegal: 18,<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>weightPR: 5,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>criteria: [</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"仅有单方陈述",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"电子邮件/聊天记录等电子证据",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"书面合同+银行流水等直接证据",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"经公证的书面证据",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"司法鉴定报告+完整证据链"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>]</p>
+<p class="p1"><span class="Apple-converted-space">                </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>name: "法律依据",<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>weightLegal: 18,<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>weightPR: 2,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>criteria: [</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"法律空白领域",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"需司法解释补正",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"存在争议判例",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"明确法规但需复杂举证",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"可直接适用具体法条"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>]</p>
+<p class="p1"><span class="Apple-converted-space">                </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>name: "时间紧迫性",<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>weightLegal: 10,<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>weightPR: 18,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>criteria: [</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"无时限要求",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"3-6个月周期",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"1-3个月周期",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"15-30日关键期",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"7日内紧急情况"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>]</p>
+<p class="p1"><span class="Apple-converted-space">                </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>name: "合作方态度",<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>weightLegal: 15,<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>weightPR: 5,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>criteria: [</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"高度配合",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"一般配合",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"态度模糊",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"消极对抗",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"完全拒绝合作"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>]</p>
+<p class="p1"><span class="Apple-converted-space">                </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>name: "案件是否涉及公共利益",<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>weightLegal: 3,<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>weightPR: 12,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>criteria: [</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"纯商业纠纷，无公共利益",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"涉及消费者权益，但未被关注",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"涉及劳工、环保、税务等社会议题",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"涉及国家政策调整或重大行业变动",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"涉及广泛民生问题，引发全民关注"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>]</p>
+<p class="p1"><span class="Apple-converted-space">                </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>name: "案件是否涉及知名企业或公众人物",<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>weightLegal: 3,<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>weightPR: 12,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>criteria: [</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"无知名企业或公众人物涉及",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"涉及行业二线企业或区域知名人物",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"涉及行业头部企业、公众人物",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"涉案主体为国企、上市公司、国际机构",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"案件涉及政府高级官员、跨国企业、行业巨头"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>]</p>
+<p class="p1"><span class="Apple-converted-space">                </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>name: "案件是否涉及政府或政策问题",<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>weightLegal: 8,<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>weightPR: 10,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>criteria: [</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"纯私人纠纷，无政策关联",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"涉及地方政策执行",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"涉及全国性政策但无监管压力",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"可能引发政策调整或监管介入",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"案件直接挑战现行法律/政策规定"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>]</p>
+<p class="p1"><span class="Apple-converted-space">                </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>name: "客户诉求",<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>weightLegal: 5,<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>weightPR: 12,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>criteria: [</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"书面道歉",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"停止侵权行为",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"品牌修复",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"经济赔偿",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"资质恢复"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>]</p>
+<p class="p1"><span class="Apple-converted-space">                </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>name: "经济损失",<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>weightLegal: 8,<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>weightPR: 3,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>criteria: [</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"无法估算",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"模型误差",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"合理估算",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"会计师事务所专项审计",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"经审计的财务报告"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>]</p>
+<p class="p1"><span class="Apple-converted-space">                </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>name: "案件复杂性",<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>weightLegal: 15,<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>weightPR: 5,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>criteria: [</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"简单明确",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"涉及单一法律问题",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"涉及多个法律领域",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"涉及跨区域或跨国法律问题",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"涉及重大法律争议或政策调整"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>]</p>
+<p class="p1"><span class="Apple-converted-space">                </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>name: "监管风险",<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>weightLegal: 10,<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>weightPR: 5,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>criteria: [</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"无风险",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"限期整改",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"警示函",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"监管约谈",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"立案调查"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>]</p>
+<p class="p1"><span class="Apple-converted-space">                </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>name: "个人声誉风险",<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>weightLegal: 5,<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>weightPR: 25,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>criteria: [</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"无个人声誉影响",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"在小范围专业圈层传播",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"行业内讨论，影响专业信用",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"媒体关注，损害社会声誉",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"严重损害，导致职业生涯终止"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>]</p>
+<p class="p1"><span class="Apple-converted-space">                </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>name: "企业声誉风险",<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>weightLegal: 5,<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>weightPR: 30,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>criteria: [</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"无企业声誉影响",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"仅内部员工知晓",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"行业内传播，影响商业合作",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"公众媒体关注，企业形象受损",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"品牌形象严重受损，导致市场信任危机"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>]</p>
+<p class="p1"><span class="Apple-converted-space">                </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>name: "案件标的",<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>weightLegal: 10,<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>weightPR: 10,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>criteria: [</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"≤50万",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"50万-100万",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"100万-300万",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"300万-500万",</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>"&gt;500万"</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>]</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>]</p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function createScoreSelector(dimension, index) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const container = document.createElement('div');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>container.className = 'score-selector';</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>dimension.criteria.forEach((criterion, i) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const score = i + 1;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const option = document.createElement('div');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>option.className = 'score-option';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>option.innerHTML = `</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;input type="radio" name="score-${index}" value="${score}"<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>id="score-${index}-${score}" ${score === 1 ? 'checked' : ''}&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;label for="score-${index}-${score}"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span class="score-value"&gt;${score}分&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span class="score-desc"&gt;${criterion}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>container.appendChild(option);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>return container;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function loadDimensions() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const dimensions = model.dimensions;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let html = `&lt;div class="dimensions-grid"&gt;`;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>dimensions.forEach((dim, index) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>html += `</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="dimension-card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="dimension-header"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h3&gt;${dim.name}&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="score-container" id="score-container-${index}"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>html += `&lt;/div&gt;`;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById("dimensions-content").innerHTML = html;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>dimensions.forEach((dim, index) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const container = document.getElementById(`score-container-${index}`);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>container.appendChild(createScoreSelector(dim, index));</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// 监听评分变化，启用按钮</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const inputs = document.querySelectorAll('input[type="radio"]');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>inputs.forEach(input =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>input.addEventListener('change', () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const calculateBtn = document.getElementById('calculate-btn');</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>calculateBtn.disabled = false;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>calculateBtn.textContent = '生成评估结果';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function calculateScore() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const dimensions = model.dimensions;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let judicialScore = 0, prScore = 0;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>dimensions.forEach((dim, index) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const selectedScore = parseInt(</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>document.querySelector(`input[name="score-${index}"]:checked`).value</p>
+<p class="p1"><span class="Apple-converted-space">                </span>);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>judicialScore += selectedScore * dim.weightLegal / 100;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>prScore += selectedScore * dim.weightPR / 100;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const diff = judicialScore - prScore;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>displayResult(judicialScore, prScore, diff);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function displayResult(judicial, pr, diff) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let conclusion, icon, decisionClass;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (diff &gt;= 1.5) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>conclusion = "强烈建议优先采取司法途径解决";</p>
+<p class="p1"><span class="Apple-converted-space">                </span>icon = "⚖️";</p>
+<p class="p1"><span class="Apple-converted-space">                </span>decisionClass = "judicial";</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} else if (diff &gt;= 0.5) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>conclusion = "建议以司法途径为主，辅以公关手段";</p>
+<p class="p1"><span class="Apple-converted-space">                </span>icon = "📜";</p>
+<p class="p1"><span class="Apple-converted-space">                </span>decisionClass = "judicial";</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} else if (diff &gt;= -0.5) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>conclusion = "建议采取双轨并行策略，司法与公关并重";</p>
+<p class="p1"><span class="Apple-converted-space">                </span>icon = "🔄";</p>
+<p class="p1"><span class="Apple-converted-space">                </span>decisionClass = "dual";</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>conclusion = "建议优先采取公关途径解决";</p>
+<p class="p1"><span class="Apple-converted-space">                </span>icon = "🤝";</p>
+<p class="p1"><span class="Apple-converted-space">                </span>decisionClass = "pr";</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const conclusionDiv = document.getElementById("conclusion");</p>
+<p class="p1"><span class="Apple-converted-space">            </span>conclusionDiv.innerHTML = `</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;h3&gt;${icon} 评估结果分析&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="conclusion-grid"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="score-card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="label"&gt;司法评分&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="value"&gt;${judicial.toFixed(2)}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="score-card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="label"&gt;公关评分&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="value"&gt;${pr.toFixed(2)}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="score-card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="label"&gt;策略差值&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="value"&gt;${diff.toFixed(2)}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="decision ${decisionClass}"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;strong&gt;决策建议：&lt;/strong&gt;${conclusion}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>conclusionDiv.className = 'conclusion show';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// 初始加载</p>
+<p class="p1"><span class="Apple-converted-space">        </span>loadDimensions();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// 绑定计算按钮事件</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const calculateBtn = document.getElementById('calculate-btn');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>calculateBtn.addEventListener('click', calculateScore);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
